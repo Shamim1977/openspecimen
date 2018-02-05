@@ -22,8 +22,10 @@ public class DistributionOrderItem extends BaseEntity {
 	private DistributionOrder order;
 	
 	private BigDecimal quantity;
-	
+
 	private Specimen specimen;
+
+	private BigDecimal cost;
 	
 	private Status status;
 
@@ -68,7 +70,15 @@ public class DistributionOrderItem extends BaseEntity {
 	public void setSpecimen(Specimen specimen) {
 		this.specimen = specimen;
 	}
-	
+
+	public BigDecimal getCost() {
+		return cost;
+	}
+
+	public void setCost(BigDecimal cost) {
+		this.cost = cost;
+	}
+
 	public Status getStatus() {
 		return status;
 	}

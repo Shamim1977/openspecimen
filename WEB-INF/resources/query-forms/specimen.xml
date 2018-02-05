@@ -754,6 +754,16 @@
         </row>
 
         <row>
+          <numberField>
+            <name>cost</name>
+            <udn>cost</udn>
+            <caption>#getMessage("specimen_distribution_cost")</caption>
+            <column>COST</column>
+            <noOfDigitsAfterDecimal>2</noOfDigitsAfterDecimal>
+          </numberField>
+        </row>
+
+        <row>
           <subForm>
             <name>customFields</name>
             <udn>customFields</udn>

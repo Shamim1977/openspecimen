@@ -388,6 +388,7 @@ public class DistributionOrderFactoryImpl implements DistributionOrderFactory {
 		DistributionOrderItem orderItem = new DistributionOrderItem();
 		orderItem.setQuantity(detail.getQuantity());
 		orderItem.setSpecimen(specimen);
+		orderItem.setCost(detail.getCost());
 		orderItem.setOrder(order);
 
 		setOrderItemStatus(detail, orderItem, ose);

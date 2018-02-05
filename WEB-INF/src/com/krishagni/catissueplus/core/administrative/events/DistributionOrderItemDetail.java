@@ -16,7 +16,9 @@ public class DistributionOrderItemDetail {
 	private SpecimenInfo specimen;
 	
 	private BigDecimal quantity;
-	
+
+	private BigDecimal cost;
+
 	private String status;
 
 	public Long getId() {
@@ -51,6 +53,14 @@ public class DistributionOrderItemDetail {
 		this.quantity = quantity;
 	}
 
+	public BigDecimal getCost() {
+		return cost;
+	}
+
+	public void setCost(BigDecimal cost) {
+		this.cost = cost;
+	}
+
 	public String getStatus() {
 		return status;
 	}
@@ -65,6 +75,7 @@ public class DistributionOrderItemDetail {
 		detail.setOrderName(orderItem.getOrder().getName());
 		detail.setQuantity(orderItem.getQuantity());
 		detail.setSpecimen(SpecimenInfo.from(orderItem.getSpecimen()));
+		detail.setCost(orderItem.getCost());
 		detail.setStatus(orderItem.getStatus().name());
 		return detail;
 	}

@@ -37,7 +37,8 @@
     "Specimen.pathologicalStatus",
     "Specimen.createdOn",
     "Specimen.availableQty",
-    "Specimen.extensions.SpecimenDistributedEvent.quantity"
+    "Specimen.extensions.SpecimenDistributedEvent.quantity",
+    "Specimen.specimenOrders.cost"
   ],
   "reporting":{
     "type":"none",

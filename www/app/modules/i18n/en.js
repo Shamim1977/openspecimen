@@ -1988,7 +1988,9 @@
       "available_qty": "Available",
       "quantity": "Quantity",
       "location": "Location",
-      "virtual": "Not Stored"
+      "virtual": "Not Stored",
+      "cost": "Cost",
+      "cost_total": "Total"
     },
 
     "statuses": {

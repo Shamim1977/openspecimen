@@ -15,8 +15,11 @@
         <td class="col os-col-20">
           <span translate="orders.spec.cp">Collection Protocol</span>
         </td>
-        <td class="col os-col-15">
+        <td class="col os-col-10">
           <span translate="orders.spec.quantity">Quantity</span>
+        </td>
+        <td class="col os-col-5">
+          <span translate="orders.spec.cost">Cost</span>
         </td>
         <td class="col os-col-15">
           <span translate="orders.status">Status</span>
@@ -39,13 +42,33 @@
         <td class="col os-col-20">
           <span>{{specimen.cpShortTitle}}</span>
         </td>
-        <td class="col os-col-15">
+        <td class="col os-col-10">
           <span>{{item.quantity}}</span>
           <os-specimen-unit specimen-class="specimen.specimenClass" type="specimen.type">
           </os-specimen-unit>
         </td>
+        <td class="col os-col-5">
+          <span>{{item.cost}}</span>
+        </td>
         <td class="col os-col-15">
           <span>{{'orders.item_statuses.' + item.status | translate}}</span>
+        </td>
+      </tr>
+
+      <tr class="row">
+        <td class="col" colspan="3">
+          <span>&nbsp;</span>
+        </td>
+        <td class="col">
+          <strong>
+            <span translate="orders.spec.cost_total">Total</span>
+          </strong>
+        </td>
+        <td class="col">
+          <span>{{ ctx.items | distCostTotal | number}}</span>
+        </td>
+        <td class="col">
+          <span>&nbsp;</span>
         </td>
       </tr>
     </tbody>

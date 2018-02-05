@@ -418,6 +418,15 @@ angular.module('os.administrative.order.addedit', ['os.administrative.models', '
       var result = Util.validateItems($scope.order.orderItems, ctrl.getLabels(), prop);
       Util.showItemsValidationResult(getValidationMsgKeys(ctrl.useBarcode()), result);
     }
+
+    $scope.copyFirstCostToAll = function() {
+      var cost = $scope.order.orderItems[0].cost;
+      angular.forEach($scope.order.orderItems,
+        function(item) {
+          item.cost = cost;
+        }
+      );
+    }
     
     init();
   });

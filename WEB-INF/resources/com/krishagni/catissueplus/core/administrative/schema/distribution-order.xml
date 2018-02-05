@@ -107,6 +107,11 @@
       </field>
 
       <field>
+        <caption>#getMessage("order_item_cost")</caption>
+        <attribute>cost</attribute>
+      </field>
+
+      <field>
         <caption>#getMessage("order_item_status")</caption>
         <attribute>status</attribute>
       </field>

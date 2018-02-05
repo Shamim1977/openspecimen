@@ -208,6 +208,12 @@
             <span translate="orders.spec.quantity">Quantity</span>
           </th>
           <th class="col">
+            <span translate="orders.spec.cost">Cost</span>
+            <a ng-click="copyFirstCostToAll()" style="font-weight: normal">
+              (<span translate="common.copy_first_to_all">Copy first to all</span>)
+            </a>
+          </th>
+          <th class="col">
             <div class="os-checkbox-container">
               <os-checkbox ng-model="input.allItemStatus" ng-change="toggleAllItemStatus()"></os-checkbox>
               <span class="os-checkbox-label" translate="orders.dispose_all">Dispose All</span>
@@ -258,6 +264,10 @@
             <div os-field-error field="sform.qty"></div>
           </td>
           <td class="col">
+            <input name="cost" ng-model="item.cost" ng-pattern="/^([0-9]+|[0-9]*\.[0-9]+)$/" os-md-input
+              class="form-control" type="number">
+          </td>
+          <td class="col">
             <div class="os-checkbox-container">
               <os-checkbox ng-model="item.status" ng-true-value="'DISTRIBUTED_AND_CLOSED'" ng-change="setHeaderStatus()"
                 ng-false-value="'DISTRIBUTED'" ng-disabled="item.quantity == specimen.availableQty"></os-checkbox>
@@ -267,6 +277,22 @@
             <button class="btn btn-xs btn-default" ng-click="removeOrderItem(item)">
               <span class="fa fa-remove"></span>
             </button>
+          </td>
+        </tr>
+        <tr class="row">
+          <td class="col" colspan="5">
+            <span>&nbsp;</span>
+          </td>
+          <td class="col">
+            <strong>
+              <span translate="orders.spec.cost_total">Total</span>
+            </strong>
+          </td>
+          <td class="col">
+            <span>{{ order.orderItems | distCostTotal | number}}</span>
+          </td>
+          <td class="col" colspan="2">
+            <span>&nbsp;</span>
           </td>
         </tr>
       </tbody>
