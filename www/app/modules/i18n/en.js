@@ -1989,8 +1989,7 @@
       "quantity": "Quantity",
       "location": "Location",
       "virtual": "Not Stored",
-      "cost": "Cost",
-      "cost_total": "Total"
+      "cost": "Cost"
     },
 
     "statuses": {

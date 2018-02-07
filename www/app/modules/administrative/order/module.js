@@ -4,8 +4,7 @@ angular.module('os.administrative.order',
     'os.administrative.order.list',
     'os.administrative.order.detail',
     'os.administrative.order.addedit',
-    'os.administrative.order.returnspecimens',
-    'os.administrative.order.cost'
+    'os.administrative.order.returnspecimens'
   ])
 
   .config(function($stateProvider) {

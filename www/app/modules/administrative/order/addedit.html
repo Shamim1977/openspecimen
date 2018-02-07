@@ -264,8 +264,9 @@
             <div os-field-error field="sform.qty"></div>
           </td>
           <td class="col">
-            <input name="cost" ng-model="item.cost" ng-pattern="/^([0-9]+|[0-9]*\.[0-9]+)$/" os-md-input
-              class="form-control" type="number">
+            <input type="text" name="cost" ng-model="item.cost" os-md-input class="form-control"
+              ng-pattern="/^([0-9]+|[0-9]*\.[0-9]+)$/" ng-model-options="{allowInvalid:'true'}"/>
+            <div os-field-error field="sform.cost"></div>
           </td>
           <td class="col">
             <div class="os-checkbox-container">
@@ -277,22 +278,6 @@
             <button class="btn btn-xs btn-default" ng-click="removeOrderItem(item)">
               <span class="fa fa-remove"></span>
             </button>
-          </td>
-        </tr>
-        <tr class="row">
-          <td class="col" colspan="5">
-            <span>&nbsp;</span>
-          </td>
-          <td class="col">
-            <strong>
-              <span translate="orders.spec.cost_total">Total</span>
-            </strong>
-          </td>
-          <td class="col">
-            <span>{{ order.orderItems | distCostTotal | number}}</span>
-          </td>
-          <td class="col" colspan="2">
-            <span>&nbsp;</span>
           </td>
         </tr>
       </tbody>

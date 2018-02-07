@@ -385,6 +385,10 @@ public class DistributionOrderFactoryImpl implements DistributionOrderFactory {
 			return null;
 		}
 
+		if (NumUtil.lessThanZero(detail.getCost())) {
+			ose.addError(DistributionOrderErrorCode.ITEM_INVALID_COST, specimen.getLabel());
+		}
+
 		DistributionOrderItem orderItem = new DistributionOrderItem();
 		orderItem.setQuantity(detail.getQuantity());
 		orderItem.setSpecimen(specimen);
