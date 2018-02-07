@@ -15,10 +15,10 @@
         <td class="col os-col-20">
           <span translate="orders.spec.cp">Collection Protocol</span>
         </td>
-        <td class="col os-col-10">
+        <td class="col" ng-class="{true: 'os-col-10', false: 'os-col-15'}[isInvoicingAvailable]">
           <span translate="orders.spec.quantity">Quantity</span>
         </td>
-        <td class="col os-col-5">
+        <td ng-if="isInvoicingAvailable" class="col os-col-5">
           <span translate="orders.spec.cost">Cost</span>
         </td>
         <td class="col os-col-15">
@@ -42,15 +42,15 @@
         <td class="col os-col-20">
           <span>{{specimen.cpShortTitle}}</span>
         </td>
-        <td class="col os-col-10">
+        <td class="col" ng-class="{true: 'os-col-10', false: 'os-col-15'}[isInvoicingAvailable]">
           <span>{{item.quantity}}</span>
           <os-specimen-unit specimen-class="specimen.specimenClass" type="specimen.type">
           </os-specimen-unit>
         </td>
-        <td class="col os-col-5">
-          <span>{{item.cost}}</span>
+        <td ng-if="isInvoicingAvailable" class="col os-col-5">
+          <span>{{item.cost | osNoValue : '0'}}</span>
         </td>
-        <td class="col os-col-15">
+        <td class="col" ng-class="{true: 'os-col-15', false: 'os-col-20'}[isInvoicingAvailable]">
           <span>{{'orders.item_statuses.' + item.status | translate}}</span>
         </td>
       </tr>

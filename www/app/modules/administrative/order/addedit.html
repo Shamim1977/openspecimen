@@ -207,7 +207,7 @@
           <th class="col">
             <span translate="orders.spec.quantity">Quantity</span>
           </th>
-          <th class="col">
+          <th ng-if="isInvoicingAvailable" class="col">
             <span translate="orders.spec.cost">Cost</span>
             <a ng-click="copyFirstCostToAll()" style="font-weight: normal">
               (<span translate="common.copy_first_to_all">Copy first to all</span>)
@@ -263,7 +263,7 @@
             </os-spmn-measure>
             <div os-field-error field="sform.qty"></div>
           </td>
-          <td class="col">
+          <td ng-if="isInvoicingAvailable" class="col">
             <input type="text" name="cost" ng-model="item.cost" os-md-input class="form-control"
               ng-pattern="/^([0-9]+|[0-9]*\.[0-9]+)$/" ng-model-options="{allowInvalid:'true'}"/>
             <div os-field-error field="sform.cost"></div>

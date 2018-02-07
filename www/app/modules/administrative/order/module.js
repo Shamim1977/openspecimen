@@ -19,7 +19,9 @@ angular.module('os.administrative.order',
             updateOpts: {resource: 'Order', operations: ['Update']},
             deleteOpts: {resource: 'Order', operations: ['Delete']},
             importOpts: {resource: 'Order', operations: ['Export Import']}
-          }
+          },
+
+          $scope.isInvoicingAvailable = ($scope.global.appProps.plugins.indexOf('distribution-invoicing') != -1);
         },
         parent: 'signed-in'
       })
