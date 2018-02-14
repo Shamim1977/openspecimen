@@ -187,4 +187,10 @@ public class DistributionOrderItem extends BaseEntity {
 
 		return item;
 	}
+
+	public void update(DistributionOrderItem other) {
+		setOrder(other.getOrder());
+		setSpecimen(other.getSpecimen());
+		setQuantity(other.getQuantity());
+	}
 }

@@ -134,6 +134,11 @@ public class DistributionOrder extends BaseExtensionEntity {
 		return getOrderItems().stream().collect(Collectors.toMap(item -> item.getId(), item -> item));
 	}
 
+	public Map<Long, DistributionOrderItem> getSpeicmenOrderItemsMap() {
+		return getOrderItems().stream().collect(Collectors.toMap(item -> item.getSpecimen().getId(), item -> item));
+	}
+
+
 	public Status getStatus() {
 		return status;
 	}
@@ -282,12 +287,22 @@ public class DistributionOrder extends BaseExtensionEntity {
 			 */
 			return;
 		}
-		
-		CollectionUpdater.update(getOrderItems(), other.getOrderItems());
-		for (DistributionOrderItem item : getOrderItems()) {
+
+		Map<Long, DistributionOrderItem> existingItems = getSpeicmenOrderItemsMap();
+
+		for (DistributionOrderItem item : other.getOrderItems()) {
 			item.setOrder(this);
+			Long specimenId = item.getSpecimen().getId();
+			DistributionOrderItem existing = existingItems.get(specimenId);
+			if (existing != null) {
+				existing.update(item);
+				existingItems.remove(specimenId);
+			} else {
+				getOrderItems().add(item);
+			}
 		}
-		
+
+		getOrderItems().removeAll(existingItems.values());
 	}
 	
 	public DistributionOrderItem getItemBySpecimen(String label) {
