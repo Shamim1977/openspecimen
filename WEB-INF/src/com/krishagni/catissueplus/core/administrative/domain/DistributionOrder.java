@@ -13,12 +13,9 @@ import org.hibernate.envers.NotAudited;
 
 import com.krishagni.catissueplus.core.administrative.domain.factory.DistributionOrderErrorCode;
 import com.krishagni.catissueplus.core.administrative.domain.factory.SpecimenRequestErrorCode;
-import com.krishagni.catissueplus.core.biospecimen.domain.BaseEntity;
 import com.krishagni.catissueplus.core.biospecimen.domain.BaseExtensionEntity;
 import com.krishagni.catissueplus.core.biospecimen.domain.SpecimenList;
-import com.krishagni.catissueplus.core.common.CollectionUpdater;
 import com.krishagni.catissueplus.core.common.errors.OpenSpecimenException;
-import com.krishagni.catissueplus.core.common.util.Status;
 import com.krishagni.catissueplus.core.common.util.Utility;
 
 @Audited
@@ -134,7 +131,7 @@ public class DistributionOrder extends BaseExtensionEntity {
 		return getOrderItems().stream().collect(Collectors.toMap(item -> item.getId(), item -> item));
 	}
 
-	public Map<Long, DistributionOrderItem> getSpeicmenOrderItemsMap() {
+	public Map<Long, DistributionOrderItem> getOrderItemsMapBySpecimenId() {
 		return getOrderItems().stream().collect(Collectors.toMap(item -> item.getSpecimen().getId(), item -> item));
 	}
 
@@ -288,16 +285,14 @@ public class DistributionOrder extends BaseExtensionEntity {
 			return;
 		}
 
-		Map<Long, DistributionOrderItem> existingItems = getSpeicmenOrderItemsMap();
-
+		Map<Long, DistributionOrderItem> existingItems = getOrderItemsMapBySpecimenId();
 		for (DistributionOrderItem item : other.getOrderItems()) {
-			item.setOrder(this);
-			Long specimenId = item.getSpecimen().getId();
-			DistributionOrderItem existing = existingItems.get(specimenId);
+			DistributionOrderItem existing = existingItems.remove(item.getSpecimen().getId());
 			if (existing != null) {
-				existing.update(item);
-				existingItems.remove(specimenId);
+				existing.setQuantity(item.getQuantity());
+				existing.setStatus(item.getStatus());
 			} else {
+				item.setOrder(this);
 				getOrderItems().add(item);
 			}
 		}
