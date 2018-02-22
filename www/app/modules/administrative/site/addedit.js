@@ -2,6 +2,8 @@ angular.module('os.administrative.site.addedit', ['os.administrative.models'])
   .controller('SiteAddEditCtrl', function(
     $scope, $state, site, extensionCtxt, currentUser, Institute, ExtensionsUtil) {
 
+    var defInstitutes;
+
     function init() {
       $scope.site = site;
       if (!currentUser.admin && !site.id) {
@@ -19,14 +21,30 @@ angular.module('os.administrative.site.addedit', ['os.administrative.models'])
 
     function loadPvs() {
       $scope.institutes = [];
-      Institute.query().then(
-        function(instituteList) {
-          angular.forEach(instituteList, function(institute) {
-            $scope.institutes.push(institute.name);
-          });
+      loadInstitutes();
+    }
+
+    function loadInstitutes(searchString) {
+      if (defInstitutes && !searchString) {
+        $scope.institutes = defInstitutes;
+        return;
+      }
+
+      if (defInstitutes && defInstitutes.length < 100) {
+        return;
+      }
+
+      Institute.query({name: searchString}).then(
+        function(institutes) {
+          $scope.institutes = institutes.map(function(institute) { return institute.name });
+          if (!searchString) {
+            defInstitutes = $scope.institutes;
+          }
         }
       );
     }
+
+    $scope.loadInstitutes = loadInstitutes;
     
     $scope.onInstituteSelect = function() {
       $scope.site.coordinators = undefined;

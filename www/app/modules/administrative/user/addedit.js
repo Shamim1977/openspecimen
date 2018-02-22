@@ -3,6 +3,7 @@ angular.module('os.administrative.user.addedit', ['os.administrative.models'])
     user, users, User, Institute, AuthDomain) {
 
     var instituteSites = {};
+    var defInstitutes;
  
     function init() {
       $scope.user = user;
@@ -21,13 +22,30 @@ angular.module('os.administrative.user.addedit', ['os.administrative.models'])
         }
       );
 
-      Institute.query().then(
+      loadInstitutes();
+    }
+
+    function loadInstitutes(searchString) {
+      if (defInstitutes && !searchString) {
+        $scope.institutes = defInstitutes;
+        return;
+      }
+
+      if (defInstitutes && defInstitutes.length < 100) {
+        return;
+      }
+
+      Institute.query({name: searchString}).then(
         function(institutes) {
           $scope.institutes = institutes.map(function(institute) { return institute.name });
 
-          if (!$scope.user.id && $scope.institutes.length == 1) {
-            $scope.user.instituteName = $scope.institutes[0];
-            loadSites($scope.user.instituteName);
+          if (!searchString) {
+            defInstitutes = $scope.institutes;
+
+            if (!$scope.user.id && institutes.length == 1) {
+              $scope.user.instituteName = $scope.institutes[0];
+              loadSites($scope.user.instituteName);
+            }
           }
         }
       );
@@ -54,6 +72,8 @@ angular.module('os.administrative.user.addedit', ['os.administrative.models'])
         }
       );
     }
+
+    $scope.loadInstitutes = loadInstitutes;
 
     $scope.onInstituteSelect = function(instituteName) {
       $scope.user.primarySite = undefined;
