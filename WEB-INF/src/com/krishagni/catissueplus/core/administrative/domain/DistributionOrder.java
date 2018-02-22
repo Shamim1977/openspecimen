@@ -3,11 +3,13 @@ package com.krishagni.catissueplus.core.administrative.domain;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.hibernate.criterion.Order;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 
@@ -134,6 +136,12 @@ public class DistributionOrder extends BaseExtensionEntity {
 	public Map<Long, DistributionOrderItem> getOrderItemsMapBySpecimenId() {
 		return getOrderItems().stream().collect(Collectors.toMap(item -> item.getSpecimen().getId(), item -> item));
 	}
+
+	public Map<String, DistributionOrderItem> getOrderItemsMapBySpecimenLabelAndCP() {
+		return getOrderItems().stream().collect(Collectors.toMap(item -> item.getSpecimen().getLabel()
+				.concat("_").concat(item.getSpecimen().getCollectionProtocol().getShortTitle()), item -> item));
+	}
+
 
 
 	public Status getStatus() {

@@ -208,6 +208,11 @@
             <span translate="orders.spec.quantity">Quantity</span>
           </th>
           <th class="col">
+            <os-plugin-hooks view-name="'order-addedit'" sec-name="'item-extra-fields-header'" default-tmpl="">
+            </os-plugin-hooks>
+          </th>
+
+          <th class="col">
             <div class="os-checkbox-container">
               <os-checkbox ng-model="input.allItemStatus" ng-change="toggleAllItemStatus()"></os-checkbox>
               <span class="os-checkbox-label" translate="orders.dispose_all">Dispose All</span>
@@ -256,6 +261,10 @@
               on-change="setStatus(item)" required>
             </os-spmn-measure>
             <div os-field-error field="sform.qty"></div>
+          </td>
+          <td class="col">
+            <os-plugin-hooks view-name="'order-addedit'" sec-name="'item-extra-fields-addedit'" default-tmpl="">
+            </os-plugin-hooks>
           </td>
           <td class="col">
             <div class="os-checkbox-container">
