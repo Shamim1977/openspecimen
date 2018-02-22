@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <span>Specimens</span>
+    <span class="fa fa-times-circle"></span>
+  </div>
+  <div class="panel-body"> 
+    <div ng-switch on="rootCtx.specimens.length > 0">
+      <div ng-switch-when="true">
+        <os-specimen-tree-panel specimens="rootCtx.specimens" selected-specimen="rootCtx.selectedSpmn">
+        </os-specimen-tree-panel>
+      </div>
+      <div ng-switch-default>
+        <span>No specimens to display</span>
+      </div>
+    </div>
+  </div>
+</div>

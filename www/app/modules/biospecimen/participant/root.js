@@ -2,7 +2,7 @@
 angular.module('os.biospecimen.participant.root', ['os.biospecimen.models'])
   .controller('ParticipantRootCtrl', function(
     $scope, cpr, hasSde, hasDict, sysDict, cpDict, lookupFieldsCfg, headers,
-    pendingSpmnsDispInterval, barcodingEnabled, spmnBarcodesAutoGen, AuthorizationService) {
+    pendingSpmnsDispInterval, barcodingEnabled, spmnBarcodesAutoGen, AuthorizationService, Specimen) {
 
     function init() {
       $scope.cpr = $scope.object = cpr;
@@ -20,6 +20,13 @@ angular.module('os.biospecimen.participant.root', ['os.biospecimen.models'])
       $scope.barcodingEnabled = barcodingEnabled;
       $scope.spmnBarcodesAutoGen = spmnBarcodesAutoGen;
       initAuthorizationOpts();
+
+      $scope.rootCtx = {};
+      Specimen.listFor(cpr.id).then(
+        function(specimens) {
+          $scope.rootCtx.specimens = specimens;
+        }
+      );
     }
 
     function initAuthorizationOpts() {
@@ -107,6 +114,10 @@ angular.module('os.biospecimen.participant.root', ['os.biospecimen.models'])
           sites: sites
         }
       }
+    }
+
+    $scope.onSpecimenSelect = function(specimen) {
+      $scope.rootCtx.selectedSpmn = specimen;
     }
 
     init();

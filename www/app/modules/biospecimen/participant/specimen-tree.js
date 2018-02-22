@@ -222,7 +222,6 @@ angular.module('os.biospecimen.participant.specimen-tree',
       templateUrl: 'modules/biospecimen/participant/specimens.html',
 
       link: function(scope, element, attrs) {
-
         scope.hasDict = false;
         scope.dispTree = false;
         scope.fields = [];
@@ -422,4 +421,37 @@ angular.module('os.biospecimen.participant.specimen-tree',
         }
       }
     }
-  });
+  })
+  .directive('osSpecimenTreePanel', function(Specimen) {
+    function openSpecimenTree(specimens) {
+      angular.forEach(specimens, function(specimen) {
+        specimen.isOpened = true;
+        openSpecimenTree(specimen.children);
+      });
+    }
+
+    return {
+      restrict: 'E',
+
+      templateUrl: 'modules/biospecimen/participant/specimens.html',
+
+      scope: {
+        specimenTree: '=specimens',
+        selectedSpecimen: '=?'
+      },
+
+      link: function(scope, element, attrs) {
+        scope.summary = true;
+        scope.specimens = Specimen.flatten(scope.specimenTree);
+        openSpecimenTree(scope.specimens);
+
+        scope.openSpecimenNode = function(specimen) {
+          specimen.isOpened = true;
+        };
+
+        scope.closeSpecimenNode = function(specimen) {
+          specimen.isOpened = false;
+        };
+      }
+    };
+  })

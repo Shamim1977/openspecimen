@@ -55,6 +55,9 @@ angular.module('os.biospecimen.specimen',
           $scope.specimen = $scope.object = specimen;
           $scope.entityType = 'Specimen';
           $scope.extnState = 'specimen-detail.extensions.';
+
+          $scope.rootCtx.selectedSpmn = specimen;
+          $scope.$on('$destroy', function() { $scope.rootCtx.selectedSpmn = undefined; });
         },
         abstract: true,
         parent: 'visit-root'
