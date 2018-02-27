@@ -9,7 +9,6 @@ angular.module('os.administrative.shipment.list', ['os.administrative.models'])
       pagerOpts = $scope.pagerOpts = new ListPagerOpts({listSizeGetter: getShipmentsCount, recordsPerPage: 50});
       $scope.filterOpts = Util.filterOpts({maxResults: pagerOpts.recordsPerPage + 1, includeStat: true});
 
-      loadInstitutes();
       loadShipments($scope.filterOpts);
       Util.filter($scope, 'filterOpts', loadShipments);
     }
@@ -23,14 +22,6 @@ angular.module('os.administrative.shipment.list', ['os.administrative.models'])
       );
     }
  
-    function loadInstitutes() {
-      Institute.query().then(
-        function(institutes) {
-          $scope.instituteNames = Institute.getNames(institutes);
-        }
-      );
-    }
-
     function getShipmentsCount() {
       return Shipment.getCount($scope.filterOpts);
     }

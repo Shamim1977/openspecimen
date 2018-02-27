@@ -2,7 +2,7 @@
 angular.module('os.administrative.order.addedit', ['os.administrative.models', 'os.biospecimen.models'])
   .controller('OrderAddEditCtrl', function(
     $scope, $state, $translate, order, spmnRequest, requestDp,
-    Institute, Specimen, SpecimensHolder, Site, DistributionProtocol,
+    Specimen, SpecimensHolder, Site, DistributionProtocol,
     DistributionOrder, SpecimenList, Alerts, Util, SpecimenUtil, ExtensionsUtil) {
     
     var ignoreQtyWarning = false;
@@ -27,13 +27,11 @@ angular.module('os.administrative.order.addedit', ['os.administrative.models', '
       }
 
       $scope.dpList = [];
-      $scope.instituteNames = [];
       $scope.siteList = [];
       $scope.userFilterOpts = {};
 
       $scope.input = {allItemStatus: false, noQtySpmnsPresent: false};
 
-      loadInstitutes();
       setUserAndSiteList(order);
 
       if (!$scope.skipSpecimensTab) {
@@ -66,14 +64,6 @@ angular.module('os.administrative.order.addedit', ['os.administrative.models', '
       );
     }
     
-    function loadInstitutes () {
-      Institute.query().then(
-        function (institutes) {
-          $scope.instituteNames = Institute.getNames(institutes);
-        }
-      );
-    }
-
     function loadOrderItems() {
       order.getOrderItems().then(
         function(orderItems) {

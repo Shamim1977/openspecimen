@@ -2,6 +2,7 @@
 angular.module('os.administrative.institute',
   [
     'ui.router',
+    'os.administrative.institute.dropdown',
     'os.administrative.institute.list',
     'os.administrative.institute.addedit',
     'os.administrative.institute.detail'
