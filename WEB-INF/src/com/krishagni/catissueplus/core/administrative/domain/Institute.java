@@ -1,6 +1,8 @@
 package com.krishagni.catissueplus.core.administrative.domain;
 
 import java.util.HashSet;
+
+
 import java.util.List;
 import java.util.Set;
 
@@ -20,6 +22,8 @@ public class Institute extends BaseEntity {
 	private static final String ENTITY_NAME ="institute";
 	
 	private String name;
+	
+	private String address;
 
 	private String activityStatus;
 
@@ -38,7 +42,15 @@ public class Institute extends BaseEntity {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public String getAddress() {
+		return address;
+	}
 
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
 	public String getActivityStatus() {
 		return activityStatus;
 	}
@@ -67,6 +79,7 @@ public class Institute extends BaseEntity {
 
 	public void update(Institute other) {		
 		setName(other.getName());
+		setAddress(other.getAddress());
 		updateActivityStatus(other.getActivityStatus());
 	}
 	

@@ -12,7 +12,7 @@ import com.krishagni.catissueplus.core.common.errors.OpenSpecimenException;
 import com.krishagni.catissueplus.core.common.util.Status;
 
 public class InstituteFactoryImpl implements InstituteFactory {
-
+	
 	@Override
 	public Institute createInstitute(InstituteDetail details) {
 		Institute institute = new Institute();
@@ -20,9 +20,20 @@ public class InstituteFactoryImpl implements InstituteFactory {
 
 		setInstituteName(details, institute, ose);
 		setActivityStatus(details, institute, ose);
+		setInstituteAddress(details, institute, ose);
 		
 		ose.checkAndThrow();
 		return institute;
+	}
+	
+	private void setInstituteAddress(InstituteDetail detail, Institute institute, OpenSpecimenException ose) {
+		String address = detail.getAddress();
+		if (StringUtils.isBlank(address)) {
+			ose.addError(InstituteErrorCode.NAME_REQUIRED);
+			return;
+		}
+
+		institute.setAddress(address);
 	}
 
 	private void setInstituteName(InstituteDetail detail, Institute institute, OpenSpecimenException ose) {

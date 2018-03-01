@@ -100,4 +100,11 @@
       <column name="ADDITIONAL_INFO_JSON" type="${clob.type}"/>
     </addColumn>
   </changeSet>
+  
+  <changeSet author="single" id="Store the address along with the name of institute">
+    <addColumn tableName="CATISSUE_INSTITUTION">
+      <column name="ADDRESS" type="${text.type}(255)"/>	
+    </addColumn>
+  </changeSet>
+  
 </databaseChangeLog>

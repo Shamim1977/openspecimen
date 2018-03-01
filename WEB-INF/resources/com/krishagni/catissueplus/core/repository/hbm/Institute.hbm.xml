@@ -17,6 +17,8 @@
 
     <property name="activityStatus" column="ACTIVITY_STATUS"/>
     
+    <property name="address" column="ADDRESS"/>
+    
     <set
       name="users"
       table="CATISSUE_USER">

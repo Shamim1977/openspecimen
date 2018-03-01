@@ -121,7 +121,7 @@ public class InstitutesController {
 		RequestEvent<InstituteDetail> req = new RequestEvent<InstituteDetail>(detail);
 		ResponseEvent<InstituteDetail> resp = instituteSvc.createInstitute(req);
 		resp.throwErrorIfUnsuccessful();
-
+		
 		return resp.getPayload();
 	}
 

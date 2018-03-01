@@ -2,6 +2,7 @@
 package com.krishagni.catissueplus.core.administrative.events;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -11,6 +12,8 @@ import com.krishagni.catissueplus.core.administrative.domain.Institute;
 public class InstituteDetail {
 
 	private Long id;
+	
+	private String address;
 
 	private String name;
 
@@ -21,13 +24,21 @@ public class InstituteDetail {
 	public Long getId() {
 		return id;
 	}
-
+	
+	public void setAddress(String address) {
+		this.address=address;
+	}
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
 
 	public String getName() {
 		return name;
+	}
+	
+	public String getAddress() {
+		return address;
 	}
 
 	public void setName(String name) {
@@ -55,6 +66,7 @@ public class InstituteDetail {
 		detail.setId(institute.getId());
 		detail.setName(institute.getName());
 		detail.setActivityStatus(institute.getActivityStatus());
+		detail.setAddress(institute.getAddress());
 		return detail;
 	}
 

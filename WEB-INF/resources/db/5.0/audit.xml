@@ -18,4 +18,12 @@
       <column name="specimenBarcodeFormat_MOD" type="${bit.type}"/>
     </addColumn>
   </changeSet>
+  
+  <changeSet author="single" id="Audit and track the changes to ADDRESS field">
+    <addColumn tableName="CATISSUE_INSTITUTION_AUD">
+      <column name="ADDRESS" type="${text.type}(255)"/>
+      <column name="address_MOD" type="${bit.type}"/>	
+    </addColumn>
+  </changeSet>
+  
 </databaseChangeLog>

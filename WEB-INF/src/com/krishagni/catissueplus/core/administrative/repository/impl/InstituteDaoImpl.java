@@ -45,6 +45,7 @@ public class InstituteDaoImpl extends AbstractDao<Institute> implements Institut
 			institute.setId((Long)row[0]);
 			institute.setName((String)row[1]);
 			institute.setActivityStatus((String)row[2]);
+			institute.setAddress((String)row[3]);
 			institutes.add(institute);
 			
 			if (listCrit.includeStat()) {
@@ -108,6 +109,7 @@ public class InstituteDaoImpl extends AbstractDao<Institute> implements Institut
 				.add(Projections.property("institute.id"), "id")
 				.add(Projections.property("institute.name"), "name")
 				.add(Projections.property("institute.activityStatus"), "activityStatus")
+				.add(Projections.property("institute.address"),"address")
 		));
 	}
 	
