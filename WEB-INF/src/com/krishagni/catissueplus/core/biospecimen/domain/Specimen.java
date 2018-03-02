@@ -18,12 +18,14 @@ import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
+import org.hibernate.envers.RelationTargetAuditMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.krishagni.catissueplus.core.administrative.domain.DistributionOrderItem;
 import com.krishagni.catissueplus.core.administrative.domain.DistributionProtocol;
+import com.krishagni.catissueplus.core.administrative.domain.SpecimenReservedEvent;
 import com.krishagni.catissueplus.core.administrative.domain.StorageContainer;
 import com.krishagni.catissueplus.core.administrative.domain.StorageContainerPosition;
 import com.krishagni.catissueplus.core.administrative.domain.User;
@@ -131,6 +133,11 @@ public class Specimen extends BaseExtensionEntity {
 	private SpecimenCollectionEvent collectionEvent;
 	
 	private SpecimenReceivedEvent receivedEvent;
+
+	//
+	// record the DP for which this specimen is currently reserved
+	//
+	private SpecimenReservedEvent reservedEvent;
 
 	//
 	// Available for all specimens in hierarchy based on values set for primary specimens
@@ -534,6 +541,15 @@ public class Specimen extends BaseExtensionEntity {
 
 	public void setReceivedEvent(SpecimenReceivedEvent receivedEvent) {
 		this.receivedEvent = receivedEvent;
+	}
+
+	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
+	public SpecimenReservedEvent getReservedEvent() {
+		return reservedEvent;
+	}
+
+	public void setReservedEvent(SpecimenReservedEvent reservedEvent) {
+		this.reservedEvent = reservedEvent;
 	}
 
 	@NotAudited

@@ -137,4 +137,60 @@
         o.activity_status != 'Disabled'
     </createView>
   </changeSet>
+
+  <changeSet author="vpawar" id="Specimen reserved for distribution events">
+    <createTable tableName="OS_SPMN_RESERVED_EVENTS">
+      <column name="IDENTIFIER" type="${int.type}" autoIncrement="${autoIncrement}">
+        <constraints nullable="false" primaryKey="true"/>
+      </column>
+      <column name="SPECIMEN_ID" type="${int.type}">
+        <constraints nullable="false"/>
+      </column>
+      <column name="DP_ID" type="${int.type}">
+        <constraints nullable="false"/>
+      </column>
+      <column name="CANCELLED_EVENT_ID" type="${int.type}"/>
+      <column name="USER_ID" type="${int.type}">
+        <constraints nullable="false"/>
+      </column>
+      <column name="EVENT_TIME" type="${timestamp.type}">
+        <constraints nullable="false"/>
+      </column>
+      <column name="COMMENTS" type="${text.type}(255)"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet author="vpawar" id="Sequence to auto generate reserved event identifiers" dbms="oracle">
+    <createSequence sequenceName="OS_SPMN_RESERVED_EVENTS_SEQ" startValue="1" incrementBy="1" ordered="true"/>
+  </changeSet>
+
+  <changeSet author="vpawar" id="Foreign key on reserved specimen">
+    <addForeignKeyConstraint constraintName="FK_RESERVED_SPMN_ID"
+      baseTableName="OS_SPMN_RESERVED_EVENTS" baseColumnNames="SPECIMEN_ID"
+      referencedTableName="CATISSUE_SPECIMEN" referencedColumnNames="IDENTIFIER"/>
+  </changeSet>
+
+  <changeSet author="vpawar" id="Foreign key on DP for which the specimen is reserved">
+    <addForeignKeyConstraint constraintName="FK_RESERVED_FOR_DP_ID"
+      baseTableName="OS_SPMN_RESERVED_EVENTS" baseColumnNames="DP_ID"
+      referencedTableName="CATISSUE_DISTRIBUTION_PROTOCOL" referencedColumnNames="IDENTIFIER"/>
+  </changeSet>
+
+  <changeSet author="vpawar" id="Foreign key on reserved event that is being cancelled">
+    <addForeignKeyConstraint constraintName="FK_CANCELLED_RESERVE_EVENT_ID"
+      baseTableName="OS_SPMN_RESERVED_EVENTS" baseColumnNames="CANCELLED_EVENT_ID"
+      referencedTableName="OS_SPMN_RESERVED_EVENTS" referencedColumnNames="IDENTIFIER"/>
+  </changeSet>
+
+  <changeSet author="vpawar" id="Specimen reserved event">
+    <addColumn tableName="CATISSUE_SPECIMEN">
+      <column name="RESERVED_EVENT_ID" type="${int.type}"/>
+    </addColumn>
+  </changeSet>
+
+  <changeSet author="vpawar" id="Foreign key on specimen reserved event">
+    <addForeignKeyConstraint constraintName="FK_SPMN_RESERVE_EVENT_ID"
+      baseTableName="CATISSUE_SPECIMEN" baseColumnNames="RESERVED_EVENT_ID"
+      referencedTableName="OS_SPMN_RESERVED_EVENTS" referencedColumnNames="IDENTIFIER"/>
+  </changeSet>
 </databaseChangeLog>

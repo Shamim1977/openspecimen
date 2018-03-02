@@ -32,4 +32,11 @@
       <column name="cost_MOD" type="${bit.type}"/>
     </addColumn>
   </changeSet>
+
+  <changeSet author="vpawar" id="Audit and track changes in specimen reservation">
+    <addColumn tableName="CATISSUE_SPECIMEN_AUD">
+      <column name="RESERVED_EVENT_ID" type="${int.type}"/>
+      <column name="reservedEvent_MOD" type="${bit.type}"/>
+    </addColumn>
+  </changeSet>
 </databaseChangeLog>

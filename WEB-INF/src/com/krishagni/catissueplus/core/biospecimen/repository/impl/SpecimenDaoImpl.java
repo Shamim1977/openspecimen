@@ -30,6 +30,7 @@ import com.krishagni.catissueplus.core.biospecimen.domain.Specimen;
 import com.krishagni.catissueplus.core.biospecimen.domain.Visit;
 import com.krishagni.catissueplus.core.biospecimen.repository.SpecimenDao;
 import com.krishagni.catissueplus.core.biospecimen.repository.SpecimenListCriteria;
+import com.krishagni.catissueplus.core.common.Pair;
 import com.krishagni.catissueplus.core.common.repository.AbstractDao;
 
 public class SpecimenDaoImpl extends AbstractDao<Specimen> implements SpecimenDao {
@@ -131,12 +132,49 @@ public class SpecimenDaoImpl extends AbstractDao<Specimen> implements SpecimenDa
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Specimen> getSpecimensByIds(List<Long> specimenIds) {
-		return sessionFactory.getCurrentSession()
-				.getNamedQuery(GET_BY_IDS)
-				.setParameterList("specimenIds", specimenIds)
-				.list();
+		return getCurrentSession().getNamedQuery(GET_BY_IDS)
+			.setParameterList("specimenIds", specimenIds)
+			.list();
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Specimen> getByLabels(Collection<Pair<String, String>> cpLabels) {
+		Criteria query = getCurrentSession().createCriteria(Specimen.class)
+			.createAlias("collectionProtocol", "cp");
+
+		Disjunction disjunction = Restrictions.disjunction();
+		for (Pair<String, String> cpLabel : cpLabels) {
+			disjunction.add(
+				Restrictions.and(
+					Restrictions.eq("cp.shortTitle", cpLabel.first()),
+					Restrictions.eq("label", cpLabel.second())
+				)
+			);
+		}
+
+		return (List<Specimen>) query.add(disjunction).list();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Specimen> getByBarcodes(Collection<Pair<String, String>> cpBarcodes) {
+		Criteria query = getCurrentSession().createCriteria(Specimen.class)
+			.createAlias("collectionProtocol", "cp");
+
+		Disjunction disjunction = Restrictions.disjunction();
+		for (Pair<String, String> cpBarcode : cpBarcodes) {
+			disjunction.add(
+				Restrictions.and(
+					Restrictions.eq("cp.shortTitle", cpBarcode.first()),
+					Restrictions.eq("barcode", cpBarcode.second())
+				)
+			);
+		}
+
+		return (List<Specimen>) query.add(disjunction).list();
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Specimen> getSpecimensByVisitId(Long visitId) {
