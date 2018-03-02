@@ -193,4 +193,20 @@
       baseTableName="CATISSUE_SPECIMEN" baseColumnNames="RESERVED_EVENT_ID"
       referencedTableName="OS_SPMN_RESERVED_EVENTS" referencedColumnNames="IDENTIFIER"/>
   </changeSet>
+
+  <changeSet author="vpawar" id="Specimen reservation events view">
+    <createView viewName="OS_SPMN_RESERVATIONS_VIEW" replaceIfExists="true">
+      select
+        r.identifier as identifier,
+        dp.short_title as dp_short_title,
+        r.user_id as reserved_by,
+        r.event_time as reservation_date,
+        r.comments as comments
+      from
+        os_spmn_reserved_events r
+        inner join catissue_distribution_protocol dp on dp.identifier = r.dp_id
+      where
+        r.cancelled_event_id is null
+    </createView>
+  </changeSet>
 </databaseChangeLog>

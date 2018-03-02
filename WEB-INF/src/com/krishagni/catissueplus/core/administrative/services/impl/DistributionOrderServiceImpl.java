@@ -823,6 +823,13 @@ public class DistributionOrderServiceImpl implements DistributionOrderService, O
 			return event;
 		}).collect(Collectors.toList());
 		daoFactory.getDistributionProtocolDao().saveReservedEvents(events);
+
+		Long formCtxtId = DeObject.getFormContextId(true, "SpecimenEvent", -1L, "SpecimenReservedEvent");
+		if (formCtxtId == null) {
+			return;
+		}
+
+		events.forEach(event -> DeObject.saveRecord(formCtxtId, event.getSpecimen().getId(), event.getId()));
 	}
 
 	private void addRates(DistributionOrder order, Collection<DistributionOrderItem> items) {
